@@ -1,30 +1,23 @@
-const inquirer = require('inquirer')
-const Engineer = require('./lib/Engineer')
-const Manager = require('./lib/Manager')
-const Intern = require('./lib/Intern')
+const inquirer = require('inquirer');
+const Engineer = require('./lib/Engineer');
+const Manager = require('./lib/Manager');
+const Intern = require('./lib/Intern');
+const questionBank = require('./lib/QuestionBank');
 
-const questionBank = require('./lib/QuestionBank')
-
-
-// Pseudo code
-
-// Actions needed
-
-// Ask them for manager info
-
-
+// Deconstructing the questionBank object into each array of questions for inquirer.
+const {nextAction, internQuestions, engineerQuestions, managerQuestions} = questionBank;
 
 async function inquire (role) {
     console.log(role)
     switch (role) {
         case 'Engineer':
-            questions = questionBank.engineerQuestions;
+            questions = engineerQuestions;
             break;
         case 'Intern':
-            questions = questionBank.internQuestions;
+            questions = internQuestions;
           break;
         case 'Manager':
-            questions = questionBank.managerQuestions;
+            questions = managerQuestions;
     }
     const answers = await
     // Prompt the user for the data
@@ -72,10 +65,8 @@ init('Manager')
 async function askForNextAction() {
     const answers = await
     inquirer
-        .prompt(questionBank.nextAction)
+        .prompt(nextAction)
         .then((answers) => {
-            console.log("Askfornextfunction",answers)
-            console.log(answers.nextAction)
             switch (answers.nextAction) {
                 case 'Add an Engineer to my team.':    
                     role = 'Engineer';
@@ -103,30 +94,3 @@ const buildTeam = () => {};
         
         
 // Use all of the collected employee data to build an html page.
-
-
-
-// Class constructor example
-
-
-
-// // import/require employee for each sub class
-// class Manager extends Employee {
-//     constructor(role, phone) {
-//       this.role = role
-//       this.phone = phone 
-//     //   const area = sideA * sideB;
-//     //   const perimeter = sideA * 2 + sideB * 2;
-  
-//       super(name, id, email);
-//         this.name = name;
-//         this.id = id;
-//         this.email = email;
-//     }
-// }
-
-
-// // Export after constructing the new class/subclass
-
-// const manager = new Manager('manager', '112')
-// console.log(manager)
