@@ -2,115 +2,9 @@ const inquirer = require('inquirer')
 const Engineer = require('./lib/Engineer')
 const Manager = require('./lib/Manager')
 const Intern = require('./lib/Intern')
-/* prompt Please build your team
-ONE PROMPT 
-    [
-    Q1 What is the team Manager's name?
-    What is the team manager's id?
-    What is the team manager's email?
-    What is the team manager's office number?
-    ]
 
-ANOTHER PROMPT (What type of team member would you like to add?)
-    * Engineer
-    * Intern
-    I dont want to add any more team members
+const questionBank = require('./lib/QuestionBank')
 
-    [
-    What is your engineer's name?
-    What is the engineer's id?
-    What is the engineer's email?
-    What is the engineer's github profile?
-    ]
-
-    [
-    What is your intern's name?
-    What is your intern's id?
-    What is your intern's email?
-    What is your intern's School?
-    ]
-*/
-
-const employees = [];
-
-
-const managerQuestions = [
-    {
-        type: "input",
-        message: "What is the team Manager's name?",
-        name: "name"
-    },
-    {
-        type: "input",
-        message: "What is the team manager's id?",
-        name: "id"
-    },
-    {
-        type: "input",
-        message: "What is the team manager's email?",
-        name: "email"
-    },
-    {
-        type: "input",
-        message: "What is the team manager's office number?",
-        name: "phone"
-    }
-]
-
-
-
-const engineerQuestions = [
-    {
-        type: "input",
-        message: "What is the engineer's name?",
-        name: "name"
-    },
-    {
-        type: "input",
-        message: "What is the engineer's id?",
-        name: "id"
-    },
-    {
-        type: "input",
-        message: "What is the engineer's email?",
-        name: "email"
-    },
-    {
-        type: "input",
-        message: "What is the engineer's github profile?",
-        name: "github"
-    }
-]
-
-const internQuestion = [
-    {
-        type: "input",
-        message: "What is the intern's name?",
-        name: "name"
-    },
-    {
-        type: "input",
-        message: "What is the intern's id?",
-        name: "id"
-    },
-    {
-        type: "input",
-        message: "What is the intern's email?",
-        name: "email"
-    },
-    {
-        type: "input",
-        message: "What is your intern's School?",
-        name: "school"
-    }
-]
-
-const nextAction = [{
-    type: "list",
-    message: "What would you like to do next?",
-    choices: ["Add an Engineer to my team.","Add an Intern to my team.","Finish building my team."],
-    name: "nextAction"
-}]
 
 // Pseudo code
 
@@ -124,13 +18,13 @@ async function inquire (role) {
     console.log(role)
     switch (role) {
         case 'Engineer':
-            questions = engineerQuestions;
+            questions = questionBank.engineerQuestions;
             break;
         case 'Intern':
-            questions = internQuestion;
+            questions = questionBank.internQuestions;
           break;
         case 'Manager':
-            questions = managerQuestions;
+            questions = questionBank.managerQuestions;
     }
     const answers = await
     // Prompt the user for the data
@@ -178,7 +72,7 @@ init('Manager')
 async function askForNextAction() {
     const answers = await
     inquirer
-        .prompt(nextAction)
+        .prompt(questionBank.nextAction)
         .then((answers) => {
             console.log("Askfornextfunction",answers)
             console.log(answers.nextAction)
