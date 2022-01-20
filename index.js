@@ -83,17 +83,17 @@ const engineerQuestions = [
 const internQuestion = [
     {
         type: "input",
-        message: "What is the engineer's name?",
+        message: "What is the intern's name?",
         name: "name"
     },
     {
         type: "input",
-        message: "What is the engineer's id?",
+        message: "What is the intern's id?",
         name: "id"
     },
     {
         type: "input",
-        message: "What is the engineer's email?",
+        message: "What is the intern's email?",
         name: "email"
     },
     {
@@ -103,7 +103,12 @@ const internQuestion = [
     }
 ]
 
-
+const nextAction = [{
+    type: "list",
+    message: "What would you like to do next?",
+    choices: ["Add an Engineer to my team.","Add an Intern to my team.","Finish building my team."],
+    name: "nextAction"
+}]
 
 // Pseudo code
 
@@ -114,15 +119,17 @@ const internQuestion = [
 
 
 async function inquire (role) {
+    console.log(role)
     switch (role) {
         case 'Engineer':
             questions = engineerQuestions;
             break;
         case 'Intern':
-            questions = engineerQuestions;
+            questions = internQuestion;
           break;
         case 'Manager':
             questions = managerQuestions;
+    }
     const answers = await
     // Prompt the user for the data
     inquirer
@@ -138,33 +145,9 @@ async function inquire (role) {
 
 
 
-async function askForNextAction(role) {
-    
-    inquirer
-        .prompt(questions)
-        .then((answers) => {
-            switch (role) {
-                case 'Engineer':
-                    questions = engineerQuestions;
-                    break;
-                case 'Intern':
-                    questions = engineerQuestions;
-                  break;
-                case 'Manager':
-                    questions = managerQuestions;
-            console.log(answers)
-            // THEN create and store an object for the Manager
-            // employees.push(new Manager ( /* pass in answer data from inquirer*/ ));
-            // THEN `Ask what they would like to do next`
-            askForNextAction();
-        })
-    
-    inquire(questions)
-}
+const init = (role) => inquire(role);
 
-const init = (role) => inquire('Manager');
-
-init()
+init('Manager')
 
 
 // Ask them for engineer info
@@ -177,8 +160,31 @@ init()
 
 // Ask them for intern info
 
-// Ask what they would like to do next?
 
+// Ask what they would like to do next?
+async function askForNextAction() {
+    const answers = await
+    inquirer
+        .prompt(nextAction)
+        .then((answers) => {
+            console.log("Askfornextfunction",answers)
+            console.log(answers.nextAction)
+            switch (answers.nextAction) {
+                case 'Add an Engineer to my team.':    
+                    role = 'Engineer';
+                    inquire(role)
+                    break;
+                case 'Add an Intern to my team.':
+                    role = 'Intern';
+                    inquire(role)
+                  break;
+                case 'Finish building my team.':
+                    buildTeam()
+        }});
+    
+}
+
+const buildTeam = () => {};
     // Add Engineer, Add Intern, `Be done` Adding employees
 
         // IF `Add Engineer` => `Ask for Engineer info`
@@ -238,4 +244,3 @@ init()
 
 // const manager = new Manager('manager', '112')
 // console.log(manager)
-
