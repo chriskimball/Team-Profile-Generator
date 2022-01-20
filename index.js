@@ -2,8 +2,8 @@ const inquirer = require('inquirer');
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
-const questionBank = require('./lib/QuestionBank');
-const generateHTML = require('./lib/generateHTML');
+const questionBank = require('./src/QuestionBank');
+const generateHTML = require('./src/generateHTML');
 const fs = require('fs');
 
 // Deconstructing the questionBank object into each array of questions for inquirer.
