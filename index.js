@@ -137,26 +137,24 @@ async function inquire (role) {
     inquirer
         .prompt(questions)
         .then((answers) => {
-            console.log(answers)
-            // THEN create and store an object for the Manager
-            // employees.push(new Manager ( /* pass in answer data from inquirer*/ ));
-
-            employees.push( buildEmployeeObj(role, answers));
-            // THEN `Ask what they would like to do next`
+            buildEmployeeObj(role, answers);
             askForNextAction();
         })
 };
 
 const buildEmployeeObj = (role, answers) => {
+    
+    const { name, id, email, phone, school, github} = answers;
+
     switch (role) {
         case 'Engineer':
-            new Engineer (answers);
+            employees.push(new Engineer (name, id, email, github));
             break;
         case 'Intern':
-            new Intern (answers);
-          break;
+            employees.push(new Intern (name, id, email, school));
+            break;
         case 'Manager':
-            new Manager (answers);
+            employees.push(new Manager (name, id, email, phone));
     }
 }
 
@@ -194,6 +192,7 @@ async function askForNextAction() {
                     inquire(role)
                   break;
                 case 'Finish building my team.':
+                    console.log(employees)
                     buildTeam()
         }});
     
