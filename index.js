@@ -3,12 +3,15 @@ const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const questionBank = require('./lib/QuestionBank');
+const generateHTML = require('./lib/generateHTML');
+const fs = require('fs');
 
 // Deconstructing the questionBank object into each array of questions for inquirer.
 const {nextAction, internQuestions, engineerQuestions, managerQuestions} = questionBank;
 
+const employees = [];
+
 async function inquire (role) {
-    console.log(role)
     switch (role) {
         case 'Engineer':
             questions = engineerQuestions;
@@ -77,13 +80,25 @@ async function askForNextAction() {
                     inquire(role)
                   break;
                 case 'Finish building my team.':
-                    console.log(employees)
-                    buildTeam()
+                    writeFile(generateHTML(employees))
         }});
     
 }
 
-const buildTeam = () => {};
+const writeFile = (data) => {
+    fs.writeFile(
+        "./dist/index.html", // file name
+        data, // content to write
+        (err) => 
+        err ? console.error(err) : console.log('Building HTML page...') //call back function
+      );
+}
+
+
+// const generateHTML = () => {
+//     for (employee in employees) console.log(employees[employee].getRole())
+    
+// };
     // Add Engineer, Add Intern, `Be done` Adding employees
 
         // IF `Add Engineer` => `Ask for Engineer info`
