@@ -1,5 +1,7 @@
 const inquirer = require('inquirer')
-
+const Engineer = require('./lib/Engineer')
+const Manager = require('./lib/Manager')
+const Intern = require('./lib/Intern')
 /* prompt Please build your team
 ONE PROMPT 
     [
@@ -138,12 +140,25 @@ async function inquire (role) {
             console.log(answers)
             // THEN create and store an object for the Manager
             // employees.push(new Manager ( /* pass in answer data from inquirer*/ ));
+
+            employees.push( buildEmployeeObj(role, answers));
             // THEN `Ask what they would like to do next`
             askForNextAction();
         })
 };
 
-
+const buildEmployeeObj = (role, answers) => {
+    switch (role) {
+        case 'Engineer':
+            new Engineer (answers);
+            break;
+        case 'Intern':
+            new Intern (answers);
+          break;
+        case 'Manager':
+            new Manager (answers);
+    }
+}
 
 const init = (role) => inquire(role);
 
@@ -200,29 +215,7 @@ const buildTeam = () => {};
 
 // Class constructor example
 
-// class Employee {
-//     constructor (name, id, email) {
-//         this.name = name;
-//         this.id = id;
-//         this.email = email;
-//     }
 
-//     getName () {
-//         return this.name;
-//     }
-
-//     getId () {
-//         return this.id
-//     }
-
-//     getEmail () {
-//         return this.email
-//     }
-
-//     getRole () {
-//         return `Employee`
-//     }
-// }
 
 // // import/require employee for each sub class
 // class Manager extends Employee {
