@@ -3,7 +3,7 @@ const Intern = require("../lib/Intern");
 describe("Intern", () => {
   
     describe("Initialization", () => {
-        it("should create an Intern object with a name, id, email property, and school if provided valid arguments", () => {
+        it("should create an Intern object with a name, id, email , and school property if provided valid arguments", () => {
           // Arrange 
           const chris = {
               name: 'Chris',

@@ -3,7 +3,7 @@ const Engineer = require("../lib/Engineer");
 describe("Engineer", () => {
   
     describe("Initialization", () => {
-        it("should create an engineer object with a name, id, email property, and github if provided valid arguments", () => {
+        it("should create an engineer object with a name, id, email, and github property if provided valid arguments", () => {
           // Arrange 
           const chris = {
               name: 'Chris',
