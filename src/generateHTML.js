@@ -1,17 +1,23 @@
+/*
+// Function to generate HTML string for the unique datapoint of each employee type.
+// If manager, add their office phone number.
+// If engineer, add a link to their github profile.
+// If intern, add information about the school they are attending.
+*/
 const uniqueDataPoint = (employee) => {
     role = employee.getRole();
     switch (role) {
         case 'Engineer':
-            return `GitHub: <a href="https://github.com/${employee.getGithub()}" target="_blank">${employee.getGithub()}</a>`
+            return `GitHub: <a href="https://github.com/${employee.getGithub()}" target="_blank">${employee.getGithub()}</a>`;
         case 'Intern':
-            return `School: ${employee.getSchool()}`
+            return `School: ${employee.getSchool()}`;
         case 'Manager':
             return `Office Number: <a href="tel:${employee.getPhone()}" target="_blank">${employee.getPhone()}</a>`;
-    }
-}
+    };
+};
 
+// Function to generate HTML card string for each employee based off the employee array.
 const generateCard = (employee) => {
-    
     return `
     <div class="card m-1 rounded shadow-lg" style="width: 18rem;">
         <div class="card-body bg-primary rounded-top">
@@ -26,16 +32,17 @@ const generateCard = (employee) => {
                 <li class="list-group-item">${uniqueDataPoint(employee)}</li>
                 </ul>
         </div>
-    </div>`
-}
+    </div>`;
+};
 
-
+// Function to generate HTML string for the entire index.html file.
 const generateHTML = (employees) => {
-    var cardHtmlString = ""
+    var cardHtmlString = "";
     
+    // For loop to loop through each employee in the employees array and generate a card for them, adding it to the cardHTMLstring
     for (const employee in employees) {
         cardHtmlString +=`${generateCard(employees[employee])}`;
-    }
+    };
 
     return `
 <!DOCTYPE html>
@@ -61,7 +68,8 @@ const generateHTML = (employees) => {
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 </body>
-</html>`
+</html>`;
 };
-  
-  module.exports = generateHTML;
+
+// Export the generateHTML function for use in index.js
+module.exports = generateHTML;

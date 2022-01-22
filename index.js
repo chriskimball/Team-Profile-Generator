@@ -1,3 +1,4 @@
+// Required modules, npm packages, and JS files.
 const inquirer = require('inquirer');
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
@@ -9,8 +10,16 @@ const fs = require('fs');
 // Deconstructing the questionBank object into each array of questions for inquirer.
 const {nextAction, internQuestions, engineerQuestions, managerQuestions} = questionBank;
 
+// Employees array to contain employees we add to the team.
 const employees = [];
 
+// Constructing the init function to prompt inquirer.
+const init = (role) => inquire(role);
+
+/* 
+// Constructing promise based async funciton for our inquirer package. 
+// Inquirer questions are determined by the role being passed into the inquire funciton.
+*/
 async function inquire (role) {
     switch (role) {
         case 'Engineer':
@@ -21,7 +30,8 @@ async function inquire (role) {
           break;
         case 'Manager':
             questions = managerQuestions;
-    }
+    };
+
     const answers = await
     // Prompt the user for the data
     inquirer
@@ -32,10 +42,13 @@ async function inquire (role) {
         })
 };
 
+// Build employee object function based off the employee role and inquirer answers.
 const buildEmployeeObj = (role, answers) => {
     
+    // Deconstructing the inquirer answers object into variables.
     const { name, id, email, phone, school, github} = answers;
 
+    // Switch case to build each different employee type based off role.
     switch (role) {
         case 'Engineer':
             employees.push(new Engineer (name, id, email, github));
@@ -45,46 +58,32 @@ const buildEmployeeObj = (role, answers) => {
             break;
         case 'Manager':
             employees.push(new Manager (name, id, email, phone));
-    }
-}
+    };
+};
 
-const init = (role) => inquire(role);
-
-init('Manager')
-
-
-// Ask them for engineer info
-
-    // Prompt the user for the data
-
-        // THEN create and store an object for the Engineer
-
-        // THEN `Ask what they would like to do next`
-
-// Ask them for intern info
-
-
-// Ask what they would like to do next?
+// Promise based asynchronous function to ask the user what they want to do next after building an employee.
 async function askForNextAction() {
     const answers = await
     inquirer
         .prompt(nextAction)
         .then((answers) => {
+            // Switch case to determine next action based off user input.
             switch (answers.nextAction) {
                 case 'Add an Engineer to my team.':    
                     role = 'Engineer';
-                    inquire(role)
+                    inquire(role);
                     break;
                 case 'Add an Intern to my team.':
                     role = 'Intern';
-                    inquire(role)
+                    inquire(role);
                   break;
                 case 'Finish building my team.':
-                    writeFile(generateHTML(employees))
+                    writeFile(generateHTML(employees));
         }});
     
-}
+};
 
+// Write file function which will build an HTML page based off the generated HTML function.
 const writeFile = (data) => {
     fs.writeFile(
         "./dist/index.html", // file name
@@ -92,20 +91,7 @@ const writeFile = (data) => {
         (err) => 
         err ? console.error(err) : console.log('Building HTML page...') //call back function
       );
-}
+};
 
-
-// const generateHTML = () => {
-//     for (employee in employees) console.log(employees[employee].getRole())
-    
-// };
-    // Add Engineer, Add Intern, `Be done` Adding employees
-
-        // IF `Add Engineer` => `Ask for Engineer info`
-
-        // IF `Add Intern` => `Ask for Intern info`
-
-        // If `Be Done` => `build an html page`
-        
-        
-// Use all of the collected employee data to build an html page.
+// Calling the init function and passing in the 'Manager' role.
+init('Manager');
