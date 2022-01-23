@@ -59,7 +59,7 @@ If `Finish Building my team.` is selected, the application will break out of its
 ---------------
 
 *  [Github Repository](https://github.com/chriskimball/Team-Profile-Generator "Github Repo")
-*  [Readme Generator Demo](https://watch.screencastify.com/v/UibbqyCSSbbeiCwxrOKp "Video walkthrough")
+*  [Readme Generator Demo](https://watch.screencastify.com/v/Ym9dKISSpQN9ud6mPpAU "Video walkthrough")
 
 
 ## Installation
